@@ -1,0 +1,54 @@
+<!DOCTYPE html><!-- js_ajax01은 WebApp의 ajax에있음 -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport" content="width=device, initial-scale=1"/> 
+<link rel="stylesheet" href="/webJSP/etc/bootstrap.css" type="text/css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+<script src="/webJSP/etc/bootstrap.js"></script>
+<script>
+	function ajaxStart(){
+		var http = new XMLHttpRequest();
+		
+		http.onreadystatechange = function(){ 
+			// this.responseText에 담겨있음(방금이벤트가생긴객체의)
+			if(this.readyState==4 && this.status==200){
+				document.getElementById("result").innerHTML = this.responseText; //test.jsp가 실행된 화면이 여기로 넘어온다.
+			}
+		}
+		
+		http.open("GET", "test.jsp?username=홍길동&tel=010-1234-5678", true);
+		http.send();
+	}
+	
+	function ajaxStartPost(){
+		var http = new XMLHttpRequest(); //ajax를 하기위한 객체를 생성
+		
+		http.onreadystatechange = function(){ //http에 뭔가 변동사항이 일어나면 이 함수를 실행해라
+			if(this.readyState==4 && this.status==200){
+				document.getElementById("memo").innerHTML = this.responseText;
+			}
+		}
+		
+		http.open("POST", "test.jsp", true)
+		//POST방식으로 서버에 접속할때는 header를 설정해줘야한다.
+		http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		//POST방식일경우 데이터는 send함수에 명시한다.
+		http.send("username=세종대왕&tel=010-7777-8888");
+	}
+</script>
+</head>
+<body>
+<div class="container">
+	<h1>Ajax를 이용하여 비동기식으로 test.jsp정보 가져오기(GET방식)</h1>
+	<button onclick="ajaxStart()">클릭</button>
+	<div id="result">ggd</div>
+	<hr/>
+	<h1>Ajax를 이용하여 비동기식으로 test.jsp정보 가져오기(POST방식)</h1>
+	<button onclick="ajaxStartPost()">클릭하세요</button>
+	<div id="memo"></div>
+</div>
+
+</body>
+</html>

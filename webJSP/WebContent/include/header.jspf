@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- jspf는 조각파일. 조각파일은 실행형으로 인식하지 않아서 코드가 그대로 읽힌다. -->
+<%
+	String username = "세종대왕";
+	String addr = "서울시 중구";
+%>
+<style>
+	#top{
+		height:100px;
+		background:pink;
+	}
+</style>
+
+<div id="top">
+	Header
+</div>
